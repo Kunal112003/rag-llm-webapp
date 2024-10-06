@@ -1,4 +1,5 @@
 from langflow.load import run_flow_from_json
+
 TWEAKS = {
   "TextInput-mbn0J": {
     "input_value": "jeoy"
@@ -34,7 +35,7 @@ TWEAKS = {
     "template": "{sender_name}: {text}"
   },
   "OpenAIModel-cQNAX": {
-    "api_key": "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",
+    "api_key": "OPENAI_API_KEY",
     "input_value": "",
     "json_mode": False,
     "max_tokens": None,
