@@ -1,0 +1,148 @@
+:root {
+  --chat-primary-bg: #ff7e5f;
+  --chat-primary-color: #ffffff;
+  --chat-bubble-bg: #ffffff;
+  --chat-bubble-color: rgba(0, 0, 0, .8);
+  --chat-scroll-track-color: #f1f1f1;
+  --chat-scroll-color: #7a7676;
+  --chat-gradient-bg: linear-gradient(to right, #ff7e5f, #feb47b);
+  --chat-font-family: 'Roboto', sans-serif;
+}
+
+body {
+  height: 100vh;
+  font-family: var(--chat-font-family);
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.chatbot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--chat-gradient-bg);
+  overflow: hidden;
+
+  margin: 0 auto;
+  scrollbar-width: none; /* Hide scrollbar for Chrome */
+}
+
+.chatbot-container {
+  width: 70%;
+  max-width: 800px;
+  height: auto;
+  background: #2c2c2c;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
+}
+
+.chatbot-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.chatbot-header-title {
+  font-size: 2.5rem;
+  color: #feb47b;
+}
+
+.chatbot-body {
+  flex: 1;
+  text-align: center;
+}
+
+.chatbot-footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.chatbot-footer input {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.chatbot-footer button {
+  padding: 15px 20px;
+  background: var(--chat-primary-bg);
+  color: var(--chat-primary-color);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.chatbot-footer button:hover {
+  background: #033a4e;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff4081;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.floating-button:hover {
+  background: #ff5575;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #feb47b;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.recipe-output {
+  background-color: #4a4a4a;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.recipe-output h2 {
+  color: #ff7e5f;
+}
+
+.recipe-output p {
+  color: #fff;
+}
+
+.recipe-output ul {
+  list-style: disc;
+  padding-left: 20px;
+}

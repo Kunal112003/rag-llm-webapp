@@ -1,5 +1,6 @@
-flask
-flask-cors
-transformers
+langchain
+PyPDF2
+python-dotenv
+streamlit
 faiss-cpu
-sentence-transformers
+streamlit-extras

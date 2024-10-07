@@ -1,0 +1,43 @@
+/* navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #3f51b5;
+  color: white;
+  height: 100px;
+}
+
+.navbar h1 {
+  margin: 0;
+}
+
+.navbar button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.navbar__menu {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar__menu a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar__menu a:hover {
+  text-decoration: underline;
+}
+
+.navbar__menu a.active {
+  font-weight: bold;
+}
+
+
+

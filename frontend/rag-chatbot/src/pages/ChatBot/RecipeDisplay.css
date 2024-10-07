@@ -1,0 +1,121 @@
+/* Style for the RecipeDisplay component */
+
+.recipe-display {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px; /* Increased padding for a better layout */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    font-family: 'Arial', sans-serif; /* Changed to a cleaner font */
+    transition: transform 0.3s ease-in-out;
+    height: 400px; /* Set to auto for dynamic height */
+    overflow: auto; /* overflow: hidden; Hide overflow */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+
+    /* overflow: hidden; Hide overflow */
+  }
+  
+    .recipe-display:hover {
+        transform: scale(1.02); /* Subtle hover effect */
+    }
+
+
+  
+  .recipe-display:hover {
+    transform: scale(1.02); /* Subtle hover effect */
+  }
+  
+  .recipe-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .recipe-header h2 {
+    color: #ff7e5f; /* Theme color */
+    font-size: 32px; /* Increased font size */
+    font-weight: bold;
+  }
+  
+  .recipe-info {
+    font-size: 18px; /* Increased font size for clarity */
+    color: #7a7676;
+    margin-top: 8px;
+  }
+  
+  .recipe-info span {
+    display: inline-block;
+    margin-right: 20px; /* Increased margin for spacing */
+  }
+  
+  .recipe-section {
+    margin-top: 25px; /* Increased margin for better separation */
+  }
+  
+  .recipe-section h3 {
+    color: #333;
+    font-size: 22px; /* Increased font size */
+    border-bottom: 2px solid #ff7e5f;
+    display: inline-block;
+    padding-bottom: 8px; /* Increased padding for aesthetics */
+    margin-bottom: 12px; /* Increased margin */
+  }
+  
+  .ingredients-list {
+    
+    color: #555;
+    font-size: 18px; /* Increased font size */
+    align-items: left; /* Align left */
+
+
+  }
+  
+  .ingredients-list li {
+    margin-bottom: 8px; /* Space between ingredients */
+  }
+  
+  .instructions-list {
+    margin-left: 0; /* Align left */
+    padding-left: 0; /* Remove padding */
+    color: #555;
+    font-size: 18px; /* Increased font size */
+    text-align: justify; /* Justify the text */
+  }
+  
+  .instructions-list li {
+    line-height: 1.8; /* Increased line height for better readability */
+    margin-bottom: 12px; /* Increased margin */
+  }
+  
+  @media (max-width: 768px) {
+    .recipe-display {
+      padding: 20px; /* Adjust padding for smaller screens */
+      margin-top: 15px;
+    }
+  
+    .recipe-header h2 {
+      font-size: 28px; /* Adjust font size */
+    }
+  
+    .recipe-info {
+      font-size: 16px; /* Adjust font size */
+    }
+  
+    .recipe-section h3 {
+      font-size: 20px; /* Adjust font size */
+    }
+  
+    .ingredients-list li,
+    .instructions-list li {
+      font-size: 16px; /* Adjust font size */
+    }
+  }
+
+
+  
+  .recipe-image {
+    width: 50%; /* Full width */
+    height: 200px; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners */
+    margin-top: 20px; /* Space above the image */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }

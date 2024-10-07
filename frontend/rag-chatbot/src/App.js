@@ -6,15 +6,17 @@ import {Recipe} from './pages/Recipe/Recipe';
 import {ChatBot} from './pages/ChatBot/ChatBot';
 import {Cuisine} from './pages/Cuisine/Cuisine';
 
+import './App.css';
+
 function App() {
   return (
     <Router>
       <NavBarBootstrap />
       <Routes>
-        <Route path="/" exact component={Home} />
-        <Route path="/recipe" component={Recipe} />
-        <Route path="/chatbot" component={ChatBot} />
-        <Route path="/cuisine" component={Cuisine} />
+        <Route path="/" element={<Home />} />
+        <Route path="/recipe" element={<Recipe />} />
+        <Route path="/chatbot" element={<ChatBot />} />
+        <Route path="/cuisine" element={<Cuisine />} />
       </Routes>
         
     </Router>

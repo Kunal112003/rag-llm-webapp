@@ -1,32 +1,54 @@
-from flask import Flask, request, jsonify
-from models.rag_model import run_chatbot  # Import your chatbot logic from the models folder
-import os
+# app.py
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+from cuisinebot.agent import CuisineAgent
 
 app = Flask(__name__)
+CORS(app)
 
-# Path to the Langflow JSON file in the `data` folder
-json_file_path = os.path.join(os.path.dirname(__file__), 'data', 'Recipe cookbook bot.json')
+@app.route("/recipe", methods=['POST'])
+def get_recipe():
+    data = request.json
+    user_query = data.get("query")
 
-@app.route('/chatbot', methods=['POST'])
+    if not user_query:
+        return jsonify({"error": "Missing query"}), 400
 
-def chatbot():
-    data = request.get_json()
-    user_message = data.get("message")
+    agent = CuisineAgent(query=user_query)
+    try:
+        recipe = agent.get_recipe()
+        return jsonify({"recipe": recipe})
+    except Exception as e:
+        print("Error getting recipe:", str(e))
+        return jsonify({"error": "Failed to get recipe."}), 500
 
-    # Run the chatbot with the user's message, using the chatbot logic from the models folder
-    response = run_chatbot(user_message, json_file_path)  # Pass the path to the JSON
 
-    return jsonify({"response": response})
+@app.route("/cuisine_info", methods=['POST'])
+def get_cuisine_info():
+    data = request.json
+    user_query = data.get("query")
+
+    if not user_query:
+        return jsonify({"error": "Missing query"}), 400
+
+    agent = CuisineAgent(query=user_query)
+    info = agent.get_cuisine_info()
+
+    return jsonify({"cuisine_info": info.dict()})
+
+
+@app.route("/cooking_tips", methods=['POST'])
+def get_cooking_tips():
+    data = request.json
+    user_query = data.get("query")
+
+    if not user_query:
+        return jsonify({"error": "Missing query"}), 400
+
+    agent = CuisineAgent(query=user_query)
+    tips = agent.get_tips()
+
+    return jsonify({"cooking_tips": tips.dict()})
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
-
-# To run the Flask app, execute the following command in the terminal:
-# python app.py
-# This will start the Flask server on http://
-
-    
-    
-    
-
-
+    app.run(host="localhost", port=5000, debug=True)
