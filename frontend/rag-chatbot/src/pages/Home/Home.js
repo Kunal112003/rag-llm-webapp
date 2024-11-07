@@ -7,9 +7,8 @@ const slidesData = [
     { id: 2, title: "Cuisines", description: "Explore different cuisines", link: "/chatbot?topic=cuisines" },
     { id: 3, title: "Uploading Recipes", description: "Upload your own recipes", link: "/chatbot?topic=upload-recipes" },
     { id: 4, title: "Cooking Tips", description: "Get helpful cooking tips", link: "/chatbot?topic=cooking-tips" },
-    {id: 5, title: "Nutrition", description: "Learn about nutrition", link: "/chatbot?topic=nutrition" },
-    {id: 6, title: "Meal Plans", description: "Get personalized meal plans", link: "/chatbot?topic=meal-plans" }
-    
+    { id: 5, title: "Nutrition", description: "Learn about nutrition", link: "/chatbot?topic=nutrition" },
+    { id: 6, title: "Meal Plans", description: "Get personalized meal plans", link: "/chatbot?topic=meal-plans" }
 ];
 
 export const Home = () => {
@@ -21,7 +20,10 @@ export const Home = () => {
     }, []);
 
     const handleSlideClick = (link) => {
-        navigate(link);
+        // Extracting the topic from the link
+        const topic = link.split('=')[1]; // This assumes the link format is "/chatbot?topic={topic}"
+        // Navigating to the ChatBot page with the selected topic
+        navigate(link, { state: { selectedTopic: topic } });
     };
 
     return (

@@ -1,55 +1,38 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useLocation } from 'react-router-dom';
 import './ChatBot.css';
-import RecipeDisplay from './RecipeDisplay'; // New component for displaying recipe
-import Loading from '../../components/Loading/Loading'; // Import the Loading component
+import RecipeDisplay from './RecipeDisplay';
+import TipsDisplay from './TipsDisplay/TipsDisplay';
+import CuisineDisplay from './CuisineDisplay/CuisineDisplay';
+import Loading from '../../components/Loading/Loading';
 
 export const ChatBot = () => {
-  const location = useLocation(); // Get the current location
-  const queryParams = new URLSearchParams(location.search); // Parse the query parameters
-  const topic = queryParams.get('topic'); // Get the topic parameter
+  const location = useLocation();
+  const { selectedTopic } = location.state || {}; // Access selected topic from state
 
-  const [recipe, setRecipe] = useState(null); // State to hold recipe data
-  const [loading, setLoading] = useState(false); // Loading state for progress display
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  function askAI() {
-    const prompt_input = document.getElementById("chat-input");
-    const prompt = prompt_input.value;
+  const askAI = () => {
+    const promptInput = document.getElementById("chat-input");
+    const prompt = promptInput.value;
 
     if (prompt.trim() === "") {
       return; // Prevent empty messages
     }
-    prompt_input.value = "";
+    promptInput.value = "";
 
-    const data = {
+    const requestData = {
       query: prompt,
     };
 
-    setLoading(true); // Start loading
+    setLoading(true);
+    let endpoint = "http://localhost:5000/recipe";
 
-    // Determine the endpoint based on the topic
-    let endpoint;
-    switch (topic) {
-      case 'recipes':
-        endpoint = 'http://localhost:5000/recipe';
-        break;
-      case 'cuisines':
-        endpoint = 'http://localhost:5000//cuisine_info';
-        break;
-      case 'upload-recipes':
-        endpoint = 'http://localhost:5000/upload-recipe';
-        break;
-      case 'cooking-tips':
-        endpoint = 'http://localhost:5000/cooking_tips';
-        break;
-      case 'nutrition':
-        endpoint = 'http://localhost:5000/nutrition';
-        break;
-      case 'meal-plans':
-        endpoint = 'http://localhost:5000/meal-plans';
-        break;
-      default:
-        endpoint = 'http://localhost:5000/recipe'; // Fallback endpoint
+    if (selectedTopic === 'cooking-tips') {
+      endpoint = "http://localhost:5000/cooking_tips";
+    } else if (selectedTopic === 'cuisines') {
+      endpoint = "http://localhost:5000/cuisine_info";
     }
 
     fetch(endpoint, {
@@ -57,7 +40,7 @@ export const ChatBot = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(requestData),
     })
       .then((response) => {
         if (!response.ok) {
@@ -66,37 +49,48 @@ export const ChatBot = () => {
         return response.json();
       })
       .then((resData) => {
-        setRecipe(resData.recipe || null); // Set the received recipe
-        setLoading(false); // End loading
+        setData(resData || null);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);
-        setLoading(false); // Ensure loading stops even if there's an error
+        setLoading(false);
       });
+  };
+
+  // Check if selectedTopic is defined
+  if (!selectedTopic) {
+    return <p>Error: No topic selected!</p>;
   }
 
   return (
     <div className="chatbot">
       <div className="chatbot-container">
         <div className="chatbot-header">
-          <div className="chatbot-header-title">AI-Powered Kitchen Companion</div>
+          <div className="chatbot-header-title">{selectedTopic.replace("-", " ").toUpperCase()}</div>
         </div>
         <div className="chatbot-body">
           {loading ? (
-            <Loading /> // Use the Loading component for the loading state
-          ) : recipe ? (
-            <RecipeDisplay recipe={recipe} /> // Show recipe in a structured way
+            <Loading />
+          ) : data ? (
+            selectedTopic === 'cooking-tips' ? (
+              <TipsDisplay tips={data.cooking_tips} />
+            ) : selectedTopic === 'cuisines' ? (
+              <CuisineDisplay cuisine={data.cuisine_info} />
+            ) : (
+              <RecipeDisplay recipe={data.recipe} />
+            )
           ) : (
-            <p>Ask me for a recipe and I will guide you step-by-step!</p>
+            <p>Ask me for a recipe, cooking tips, or cuisine info!</p>
           )}
         </div>
         <div className="chatbot-footer">
-          <input id="chat-input" type="text" placeholder="Ask for a recipe..." />
+          <input id="chat-input" type="text" placeholder="Ask something..." />
           <button onClick={askAI} id="chat-submit" className="chatbot-send-button">
-            Generate Recipe
+            Generate
           </button>
         </div>
-        <button className="floating-button" onClick={() => setRecipe(null)}>+</button> {/* Floating button */}
+        <button className="floating-button" onClick={() => setData(null)}>+</button>
       </div>
     </div>
   );
